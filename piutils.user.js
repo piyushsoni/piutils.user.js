@@ -300,3 +300,17 @@ function getQuerystring(key, default_)
 
 
 
+//Get/Set State/variables 
+function getFromGMOrAsk(key, failValue, message)
+{
+    let value = GM_getValue(key, failValue);
+    if(value == failValue)
+    {
+        value = prompt(message);
+        if(value != failValue)
+            GM_setValue(key, value);
+    }
+    return value;
+}
+
+

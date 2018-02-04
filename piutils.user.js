@@ -1,5 +1,5 @@
-Author and Copyright : Piyush Soni
-Version 1.0
+//Author and Copyright : Piyush Soni
+//Version 1.0
 
 
 var isChrome = (navigator.userAgent.toLowerCase().indexOf('chrome') >= 0);

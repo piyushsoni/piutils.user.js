@@ -1,5 +1,5 @@
 //Author and Copyright : Piyush Soni
-//Version 1.0
+//Version 1.1
 
 
 var isChrome = (navigator.userAgent.toLowerCase().indexOf('chrome') >= 0);
@@ -96,7 +96,7 @@ function getChildrenByXPath(currentNode, xpath, CallBack, evaluationDoc, secondA
 				return null;
 		}
 	
-		for ( var i=0 ; i < nodesSnapshot.snapshotLength; i++ )
+		for (var i = 0 ; i < nodesSnapshot.snapshotLength; i++)
 		{
 			returnArray.push(CallBack ? CallBack(nodesSnapshot.snapshotItem(i), (secondArgument ? secondArgument : null)) : nodesSnapshot.snapshotItem(i));
 		}
@@ -227,7 +227,7 @@ function FireChangeEvent(obj)
 {
 	if(!obj)
 	{
-		console.error("obj null, can't click change event");
+		console.error("obj null, can't fire change event");
 		return;
 	}
 	
@@ -313,4 +313,23 @@ function getFromGMOrAsk(key, failValue, message)
     return value;
 }
 
+// Returns a promise, resolved when the element is available.
+function waitForElement(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
 
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                resolve(document.querySelector(selector));
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
